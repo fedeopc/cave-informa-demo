@@ -249,6 +249,7 @@
   }
   document.addEventListener("DOMContentLoaded", () => {
     const st = document.createElement("style"); st.textContent = css; document.head.appendChild(st);
+    if (inFrame) { const h = document.createElement("style"); h.textContent = "html{scrollbar-width:none}html::-webkit-scrollbar,body::-webkit-scrollbar{display:none}"; document.head.appendChild(h); }
     if (!inFrame) {
       const s = document.createElement("div"); s.className = "demo-strip"; document.body.appendChild(s); document.body.classList.add("demo-has-strip");
       const f = document.createElement("button"); f.className = "demo-fab"; f.textContent = "⚙️"; f.setAttribute("aria-label", "Regia della demo"); f.onclick = openLocal; document.body.appendChild(f);
