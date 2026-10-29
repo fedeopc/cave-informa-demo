@@ -8,6 +8,7 @@
 <link rel="icon" href="icons/favicon-32.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="demo-config.js"></script>
 <style>
 *{box-sizing:border-box}
 body{margin:0;height:100vh;overflow:hidden;font-family:Inter,system-ui,sans-serif;color:#fff;background:radial-gradient(1200px 700px at 70% 20%,#1F4F86 0,transparent 60%),linear-gradient(160deg,#0B1A2E,#13325A);display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:2.2vw;padding:30px 1.8vw 6px}
@@ -100,7 +101,7 @@ h1{font-size:clamp(24px,2.5vw,42px);line-height:1.04;margin:12px 0 8px;font-weig
 const $=(s)=>document.querySelector(s);
 const KS="caveinforma-demo-key";
 // indirizzo dell'app vera da mostrare a sinistra (modificalo quando l'app sarà sull'organizzazione)
-const APP_URL="nomeorganizzazione.github.io/cave-informa";
+const APP_URL=(window.DEMO_CONFIG&&DEMO_CONFIG.mostra)||"";
 $("#appurl").textContent=APP_URL;
 
 function nuovoCodice(){ const a="ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; const r=crypto.getRandomValues(new Uint8Array(8)); let s=""; r.forEach((x,i)=>{ s+=a[x%a.length]; if(i===3) s+="-"; }); return s; }

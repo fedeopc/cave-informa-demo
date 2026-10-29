@@ -13,7 +13,9 @@ Tutti i dati sono **simulati**: l'app vera e i suoi dati non vengono mai toccati
 |---|---|
 | `pc.html` | La pagina da aprire sul PC o sul proiettore (sagoma del telefono, logo, funzioni) |
 | `regia.html` | La regia da aprire sul tuo telefono |
-| `index.html` | L'app dimostrativa (copia dell'app vera, versione 3.5) |
+| `index.html` | Carica l'**app vera** (dal repository `allerta-cave`) e le aggiunge la simulazione: la demo è sempre aggiornata |
+| `demo-config.js` | Impostazioni: **dove si trova l'app vera** (da cambiare solo se sposti l'app) |
+| `app-riserva.html` | Copia di riserva dell'app (versione 3.5), usata solo se l'app vera non è raggiungibile |
 | `demo.js`, `demo-comune.js` | Il "motore" della demo: crea i dati simulati e collega regia e PC |
 | `demo-data/` | Le mappe delle zone di allerta e di vigilanza meteo (servono per simulare i bollettini) |
 | `icons/` | Icone |
@@ -134,4 +136,7 @@ Un esempio di scenario da raccontare:
 - **Collegamento regia–PC**: avviene tramite **ntfy.sh**, un servizio pubblico gratuito che inoltra messaggi istantanei. Non serve nessun account. Viaggiano solo i dati della simulazione (livelli, scosse, messaggi di prova); il "canale" è il codice di abbinamento, generato a caso e scritto solo nei link, non nei file su GitHub.
 - **Separazione dall'app vera**: la demo usa memorie del browser separate (prefisso `demo:`) e non installa il funzionamento offline, quindi non interferisce con l'app vera anche se è sullo stesso account GitHub e sullo stesso PC.
 - **Indirizzo dell'app vera mostrato a sinistra sul PC**: è in cima allo script di `pc.html`, nella riga `const APP_URL = "…"`. Modificalo quando l'app avrà l'indirizzo definitivo (per esempio dopo il trasferimento all'organizzazione dell'associazione).
-- **Aggiornare la demo** quando cambia l'app vera: `index.html` della demo è una copia dell'app (versione 3.5) con due righe in più all'inizio (`demo-comune.js` e `demo.js`) e senza funzionamento offline. Chiedi una nuova copia e ricarica solo `index.html`.
+- **La demo si aggiorna da sola**: ogni volta che si apre, `index.html` legge l'app vera dal repository `allerta-cave` dello stesso account e le aggiunge al volo la simulazione (fascia gialla, dati simulati, 112 che non chiama). L'app vera non viene modificata: le aggiunte esistono solo nel browser che mostra la demo. Quando aggiorni l'app vera, alla successiva apertura la demo è già allineata.
+- **Se sposti l'app vera** (per esempio nell'organizzazione dell'associazione o rinominando il repository): apri `demo-config.js` e cambia le due righe `app` e `mostra`. Conviene spostare insieme i due repository: se restano sullo stesso indirizzo `….github.io`, basta `app: "../nome-repository-app/"`.
+- **Copia di riserva**: se l'app vera non risponde, la demo usa `app-riserva.html` (versione 3.5) e funziona lo stesso, solo senza le ultime novità.
+- **Modifiche importanti alla struttura dell'app** (per esempio una scheda dell'allerta completamente nuova) potrebbero richiedere un ritocco a `demo.js`: in quel caso la demo si apre comunque, ma alcune simulazioni potrebbero non comparire.
