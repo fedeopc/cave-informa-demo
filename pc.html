@@ -131,7 +131,9 @@ $("#ov-new").onclick=()=>{ if(!confirm("Creare un nuovo codice? Dovrai ricollega
 // regia sul PC (riserva se il telefono non ha rete)
 $("#t-regia").onclick=()=>{ const f=$("#sp-f"); if(!f.src) f.src="regia.html#k="+encodeURIComponent(key)+"&local=1"; $("#sp").classList.add("in"); };
 $("#sp-x").onclick=()=>$("#sp").classList.remove("in");
-$("#t-full").onclick=()=>{ if(document.fullscreenElement) document.exitFullscreen(); else document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen(); };
+$("#t-full").onclick=()=>{ const d=document, el=d.documentElement; // anche Safari su Mac (versioni con prefisso webkit)
+  if(d.fullscreenElement||d.webkitFullscreenElement){ (d.exitFullscreen||d.webkitExitFullscreen).call(d); }
+  else { const f=el.requestFullscreen||el.webkitRequestFullscreen; if(f) f.call(el); } };
 
 // messaggi: regia locale -> app ; stato collegamento app -> pagina
 let regiaOk=false;
