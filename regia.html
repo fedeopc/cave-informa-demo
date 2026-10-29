@@ -76,8 +76,9 @@ textarea{min-height:64px;resize:vertical}
 <div class="top"><h1>🎬 Regia demo</h1><span class="st" id="st"><b></b><span>In attesa del PC…</span></span></div>
 
 <div class="setup" id="setup" hidden>
-  <p style="margin:0 0 10px">Per collegare la regia apri questa pagina dal link mostrato sul PC (oppure inquadra il QR code), o scrivi qui il codice:</p>
-  <input id="kin" placeholder="Codice, per esempio K7Q2-M9XA" autocapitalize="characters"><button class="go" id="kgo">Collega</button>
+  <p style="margin:0 0 10px" id="setup-t">Per collegare la regia scrivi qui il codice mostrato sul PC (tasto 🔗 in basso a destra), oppure incolla il link della regia:</p>
+  <input id="kin" placeholder="Codice, per esempio K7Q2-M9XA" autocapitalize="characters" autocomplete="off"><button class="go" id="kgo">Collega</button>
+  <button class="go" id="kno" style="background:#24364A" hidden>Annulla</button>
 </div>
 
 <div id="ui">
@@ -144,7 +145,7 @@ textarea{min-height:64px;resize:vertical}
   <input id="nt-te" placeholder="Testo (facoltativo)" maxlength="160" style="margin-top:8px">
   <button class="go" id="nt-go">🔔 Invia al PC</button>
 </div></details>
-<p class="key" id="keyline"></p>
+<p class="key"><span id="keyline"></span> · <a href="#" id="kchange" style="color:#9FB6D1">Cambia codice</a></p>
 </div>
 <div class="toast" id="toast"></div>
 
@@ -160,10 +161,19 @@ const store={get(k,f){try{const v=localStorage.getItem(LS+":"+k);return v==null?
 function toast(t){const e=$("#toast");e.textContent=t;e.classList.add("in");clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove("in"),1800);}
 
 /* ---------- codice di abbinamento ---------- */
-let key=(location.hash.match(/k=([\w-]+)/)||[])[1]||store.get("key","");
+// se il codice è stato cambiato a mano, il vecchio codice nel link (es. icona sulla schermata Home) viene ignorato
+const hashKey=(location.hash.match(/k=([\w-]+)/)||[])[1]||"";
+let key=(hashKey&&hashKey!==store.get("ignora",""))?hashKey:(store.get("key","")||hashKey);
 if(key) store.set("key",key);
 if(!key){ $("#setup").hidden=false; $("#ui").hidden=true; }
-$("#kgo").onclick=()=>{const k=$("#kin").value.trim().toUpperCase().replace(/[^A-Z0-9-]/g,""); if(k.length<6){toast("Codice troppo corto");return;} location.hash="k="+k; location.reload();};
+$("#kgo").onclick=()=>{
+  let v=$("#kin").value.trim(); const m=v.match(/k=([\w-]+)/); if(m) v=m[1];   // va bene anche il link intero incollato
+  const k=v.toUpperCase().replace(/[^A-Z0-9-]/g,""); if(k.replace(/-/g,"").length<6){toast("Codice troppo corto");return;}
+  const vecchio=(location.hash.match(/k=([\w-]+)/)||[])[1]||""; if(vecchio&&vecchio!==k) store.set("ignora",vecchio);
+  store.set("key",k); location.hash="k="+k; location.reload();};
+$("#kin").addEventListener("keydown",(e)=>{ if(e.key==="Enter") $("#kgo").click(); });
+$("#kchange").onclick=(e)=>{ e.preventDefault(); $("#setup").hidden=false; $("#kno").hidden=false; $("#setup-t").textContent="Hai creato un nuovo codice sul PC? Scrivilo qui (lo vedi con il tasto 🔗 sul PC), oppure incolla il link della regia:"; $("#kin").value=""; $("#kin").focus(); window.scrollTo(0,0); };
+$("#kno").onclick=()=>{ $("#setup").hidden=true; };
 $("#keyline").textContent=key?"Codice demo: "+key:"";
 
 /* ---------- stato ---------- */
