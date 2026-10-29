@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0F1720">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Regia demo">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<title>Regia demo · Cave Informa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,system-ui,sans-serif;background:#0F1720;color:#E8EEF5;padding:calc(env(safe-area-inset-top,0px) + 12px) 12px calc(env(safe-area-inset-bottom,0px) + 30px);-webkit-tap-highlight-color:transparent}
+button{font:inherit;cursor:pointer}
+.top{display:flex;justify-content:space-between;align-items:center;margin:4px 2px 12px;gap:10px}
+.top h1{font-size:21px;margin:0}
+.st{font-size:12.5px;color:#9FB6D1;display:flex;gap:7px;align-items:center;text-align:right}
+.st b{width:9px;height:9px;border-radius:50%;background:#5B6B7C;flex:none}.st.ok b{background:#3BD16F}.st.wait b{background:#F2C21B}
+.quick{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.quick button{font-weight:800;font-size:14px;border:0;border-radius:14px;padding:13px 8px;color:#fff}
+.quick .n{background:#7B5CD6}.quick .ok{background:#2E8B57}
+details{background:#18232F;border:1px solid #243444;border-radius:18px;margin-bottom:10px;overflow:hidden}
+summary{list-style:none;display:flex;align-items:center;padding:14px;font-weight:800;font-size:16px;cursor:pointer}
+summary::-webkit-details-marker{display:none}
+summary small{font-weight:600;font-size:12.5px;color:#9FB6D1;margin-left:auto;margin-right:10px;text-align:right}
+summary::after{content:"›";transform:rotate(90deg);color:#8EA3B9;font-size:20px;transition:transform .2s}
+details[open] summary::after{transform:rotate(-90deg)}
+.in{padding:0 14px 14px}
+.lab{font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:#8EA3B9;margin:14px 0 8px}
+.lab:first-child{margin-top:2px}
+.rk{display:grid;grid-template-columns:100px 1fr;align-items:center;gap:8px;margin-bottom:8px;font-size:14px}
+.dots{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.dots button{height:36px;border-radius:10px;border:0}
+.c0{background:#2E8B57}.c1{background:#F2C21B}.c2{background:#E06A12}.c3{background:#C8232B}
+.dots .on{outline:3px solid #fff;outline-offset:1px}
+.dis{opacity:.35;pointer-events:none}
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chips button{font-size:13.5px;font-weight:600;padding:8px 12px;border-radius:999px;border:1px solid #2F4256;background:#1E2B38;color:#E8EEF5}
+.chips button.on{background:#E8EEF5;color:#0F1720;border-color:#E8EEF5}
+.sw{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:14.5px;padding:10px 0;border-top:1px solid #223242;cursor:pointer}
+.sw:first-child{border-top:0}
+.sw small{display:block;color:#8EA3B9;font-size:12px}
+.tg{width:46px;height:28px;border-radius:99px;background:#3A4B5C;position:relative;flex:none;transition:background .2s}
+.tg::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:left .2s}
+.tg.on{background:#3BD16F}.tg.on::after{left:21px}.tg.y.on{background:#F2C21B}
+input,select,textarea{width:100%;font:inherit;font-size:16px;padding:11px 12px;border-radius:12px;border:1px solid #2F4256;background:#0F1720;color:#E8EEF5}
+textarea{min-height:64px;resize:vertical}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.mag{display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px}.mag input{flex:1;padding:0;accent-color:#E06A12}
+.go{width:100%;font-weight:800;font-size:15px;padding:13px;border-radius:14px;border:0;background:#3B82F6;color:#fff;margin-top:10px}
+.go:disabled{opacity:.5}
+.item{display:flex;align-items:center;gap:10px;padding:10px 0;border-top:1px solid #223242;font-size:14px}
+.item .m{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;font-weight:800;flex:none;color:#fff}
+.item>div{flex:1;min-width:0}
+.item .x{border:0;background:none;color:#F07B7F;font-weight:700;font-size:13px;padding:8px}
+.item small{display:block;color:#8EA3B9;font-size:12px}
+.tpl{display:grid;gap:7px}
+.tpl button{text-align:left;font-size:14px;padding:10px 12px;border-radius:12px;border:1px solid #2F4256;background:#1E2B38;color:#E8EEF5}
+.tpl b{margin-right:6px}
+.fc{display:grid;grid-template-columns:58px repeat(4,minmax(0,1fr));gap:6px;align-items:center;font-size:12px;margin-bottom:6px;color:#8EA3B9}
+.fc b{color:#E8EEF5;font-size:13px}
+.fc input{padding:8px 2px;font-size:15px;text-align:center}
+.hint{font-size:12.5px;color:#8EA3B9;margin:8px 0 0;line-height:1.4}
+.hint b{color:#fff}
+.empty{font-size:13px;color:#8EA3B9;padding:6px 0}
+.key{margin-top:18px;font-size:12px;color:#5E7186;text-align:center}
+.setup{background:#18232F;border:1px solid #243444;border-radius:18px;padding:16px;margin-bottom:12px}
+.toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 18px);transform:translateX(-50%);background:#E8EEF5;color:#0F1720;font-weight:700;font-size:14px;padding:10px 16px;border-radius:999px;box-shadow:0 8px 20px rgba(0,0,0,.4);opacity:0;transition:opacity .2s;pointer-events:none;white-space:nowrap}
+.toast.in{opacity:1}
+</style>
+</head>
+<body>
+<div class="top"><h1>🎬 Regia demo</h1><span class="st" id="st"><b></b><span>In attesa del PC…</span></span></div>
+
+<div class="setup" id="setup" hidden>
+  <p style="margin:0 0 10px">Per collegare la regia apri questa pagina dal link mostrato sul PC (oppure inquadra il QR code), o scrivi qui il codice:</p>
+  <input id="kin" placeholder="Codice, per esempio K7Q2-M9XA" autocapitalize="characters"><button class="go" id="kgo">Collega</button>
+</div>
+
+<div id="ui">
+<div class="quick"><button class="n" id="q-not">🔔 Simula notifica</button><button class="ok" id="q-reset">↺ Torna alla normalità</button></div>
+
+<details id="s-all"><summary>⚠️ Allerta <small id="sum-all"></small></summary><div class="in">
+  <div id="all-man">
+  <div class="lab" id="lab-oggi">Oggi</div><div id="rk-oggi"></div>
+  <div id="dom-wrap"><div class="lab" id="lab-dom">Domani</div><div id="rk-dom"></div></div>
+  <div class="sw" id="sw-nodom"><span>Bollettino di domani non ancora uscito<small>come prima delle 16: "domani" in attesa</small></span><span class="tg" id="tg-nodom"></span></div>
+  <div class="lab">Cosa prevedeva ieri per oggi</div>
+  <div class="chips" id="ieri"></div>
+  <p class="hint">Se è diverso da oggi, l'app mostra "▲ Alzata" o "▼ Abbassata rispetto alla previsione di ieri".</p>
+  </div>
+  <div class="lab">Oppure un bollettino vero dall'archivio DPC</div>
+  <div class="two"><input type="date" id="arch-d"><button class="go" id="arch-go" style="margin:0">Carica</button></div>
+  <p class="hint" id="arch-st">L'app mostra il bollettino reale di quel giorno come se fosse oggi.</p>
+</div></details>
+
+<details id="s-met"><summary>🌧️ Meteo e previsioni <small id="sum-met"></small></summary><div class="in">
+  <div class="chips" id="met-day" style="margin-bottom:4px"></div>
+  <div class="lab">Piogge</div><div class="chips" id="met-p"></div>
+  <div class="lab">Fenomeni</div><div class="chips" id="met-f"></div>
+  <div class="lab">Previsioni 3 giorni</div><div class="chips" id="fc-pre" style="margin-bottom:10px"></div>
+  <div class="fc"><span></span><span>Max °C</span><span>Min °C</span><span>Raffiche</span><span>Pioggia mm</span></div>
+  <div id="fc-rows"></div>
+</div></details>
+
+<details id="s-eq"><summary>🌍 Terremoti <small id="sum-eq"></small></summary><div class="in">
+  <div class="lab">Nuova scossa: epicentro</div>
+  <input id="eq-n" placeholder="Scrivi un comune italiano…" autocomplete="off">
+  <div class="chips" id="eq-pre" style="margin-top:8px"></div>
+  <div class="lab">Magnitudo</div><div class="mag">M <input type="range" id="eq-m" min="2" max="6.5" step="0.1" value="3.5"><span id="eq-mv">3.5</span></div>
+  <div class="two" style="margin-top:10px">
+    <select id="eq-d"><option value="5">Profondità 5 km</option><option value="10" selected>Profondità 10 km</option><option value="20">Profondità 20 km</option><option value="40">Profondità 40 km</option></select>
+    <select id="eq-ago"><option value="0">Adesso</option><option value="5">5 minuti fa</option><option value="15">15 minuti fa</option><option value="60">1 ora fa</option><option value="180">3 ore fa</option><option value="1440">Ieri</option><option value="4320">3 giorni fa</option></select>
+  </div>
+  <p class="hint" id="eq-dist">Scegli un comune: la distanza da Cave viene calcolata in automatico.</p>
+  <button class="go" id="eq-add" disabled>＋ Aggiungi scossa</button>
+  <div class="lab">Scosse simulate</div><div id="eq-list"></div>
+</div></details>
+
+<details id="s-bb"><summary>📢 Bacheca <small id="sum-bb"></small></summary><div class="in">
+  <div class="lab">Messaggi pronti</div><div class="tpl" id="bb-tpl"></div>
+  <div class="lab">Messaggio libero</div>
+  <div class="chips" id="bb-k" style="margin-bottom:8px"></div>
+  <input id="bb-ti" placeholder="Titolo" maxlength="90">
+  <textarea id="bb-te" placeholder="Testo (facoltativo)" maxlength="280" style="margin-top:8px"></textarea>
+  <div class="two" id="bb-ev" style="margin-top:8px" hidden><input type="date" id="bb-d"><input id="bb-o" placeholder="Ora, es. 10:00"></div>
+  <input id="bb-l" placeholder="Luogo (facoltativo)" style="margin-top:8px" hidden>
+  <button class="go" id="bb-add">Pubblica in bacheca</button>
+  <div class="lab">Pubblicati</div><div id="bb-list"></div>
+</div></details>
+
+<details id="s-dae"><summary>❤️ Defibrillatori <small id="sum-dae"></small></summary><div class="in">
+  <div id="dae-list"></div>
+  <p class="hint">Acceso = "non disponibile al momento": nell'app compare l'icona gialla e viene indicato il più vicino disponibile.</p>
+</div></details>
+
+<details id="s-not"><summary>🔔 Notifica <small>personalizzabile</small></summary><div class="in">
+  <div class="tpl" id="nt-tpl"></div>
+  <div class="lab">Oppure scrivi tu</div>
+  <input id="nt-ti" placeholder="Titolo, es. ⚠️ Allerta arancione a Cave" maxlength="80">
+  <input id="nt-te" placeholder="Testo (facoltativo)" maxlength="160" style="margin-top:8px">
+  <button class="go" id="nt-go">🔔 Invia al PC</button>
+</div></details>
+<p class="key" id="keyline"></p>
+</div>
+<div class="toast" id="toast"></div>
+
+<script src="demo-comune.js"></script>
+<script>
+(function(){
+"use strict";
+const $=(s)=>document.querySelector(s);
+const esc=(s)=>String(s).replace(/[&<>"]/g,(c)=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const local=/[#&]local=1/.test(location.hash);
+const LS="caveinforma-regia";
+const store={get(k,f){try{const v=localStorage.getItem(LS+":"+k);return v==null?f:JSON.parse(v);}catch(e){return f;}},set(k,v){try{localStorage.setItem(LS+":"+k,JSON.stringify(v));}catch(e){}}};
+function toast(t){const e=$("#toast");e.textContent=t;e.classList.add("in");clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove("in"),1800);}
+
+/* ---------- codice di abbinamento ---------- */
+let key=(location.hash.match(/k=([\w-]+)/)||[])[1]||store.get("key","");
+if(key) store.set("key",key);
+if(!key){ $("#setup").hidden=false; $("#ui").hidden=true; }
+$("#kgo").onclick=()=>{const k=$("#kin").value.trim().toUpperCase().replace(/[^A-Z0-9-]/g,""); if(k.length<6){toast("Codice troppo corto");return;} location.hash="k="+k; location.reload();};
+$("#keyline").textContent=key?"Codice demo: "+key:"";
+
+/* ---------- stato ---------- */
+let S=store.get("stato",null)||DEMO.NORMALE();
+let day=0; // meteo: 0 oggi, 1 domani
+let eqPick=null;
+const giorno=(off)=>{const d=new Date();d.setDate(d.getDate()+off);return d.toLocaleDateString("it-IT",{weekday:"long",day:"numeric",month:"long"});};
+const iso=(off)=>{const d=new Date();d.setDate(d.getDate()+off);return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");};
+const LVN=["verde","gialla","arancione","rossa"];
+
+/* ---------- invio al PC ---------- */
+let tSend=null;
+function post(msg){
+  msg.id=Math.random().toString(36).slice(2);
+  if(local){ try{ window.parent.postMessage({demoMsg:msg},"*"); }catch(e){} }
+  if(!key) return Promise.resolve();
+  return fetch(DEMO.NTFY+DEMO.topic(key),{method:"POST",body:JSON.stringify(msg)}).catch(()=>{ if(!local) toast("Invio non riuscito: controlla la connessione"); });
+}
+function changed(){ S.t=Date.now(); store.set("stato",S); render(); clearTimeout(tSend); tSend=setTimeout(()=>post({type:"state",s:S}),350); }
+
+/* ---------- collegamento: il PC risponde con "hello" ---------- */
+let lastHello=0;
+function stato(){
+  const el=$("#st"), age=Date.now()-lastHello;
+  if(local){el.className="st ok";el.lastChild.textContent="Regia sul PC";return;}
+  if(lastHello&&age<150e3){el.className="st ok";el.lastChild.textContent="PC collegato";}
+  else{el.className="st wait";el.lastChild.textContent=lastHello?"PC non risponde":"In attesa del PC…";}
+}
+if(key&&window.EventSource&&!local){
+  const start=Date.now();
+  const es=new EventSource(DEMO.NTFY+DEMO.topic(key)+"/sse?since=3m");
+  es.onmessage=(ev)=>{try{const m=JSON.parse(ev.data);if(m.event!=="message")return;const inner=JSON.parse(m.message);if(inner.type==="hello"){lastHello=Math.max(lastHello,m.time*1000);stato();}}catch(e){}};
+  es.onopen=()=>{ post({type:"ping"}); setTimeout(()=>post({type:"state",s:S}),400); };
+}
+setInterval(stato,10e3); stato();
+
+/* ---------- interfaccia ---------- */
+function chips(el,list,isOn,onClick){ el.innerHTML=list.map((x,i)=>`<button type="button" class="${isOn(x,i)?"on":""}" data-i="${i}">${esc(x.label||x)}</button>`).join(""); el.querySelectorAll("button").forEach(b=>b.onclick=()=>onClick(list[+b.dataset.i],+b.dataset.i)); }
+const RISCHI=["Idrogeologico","Idraulico","Temporali"];
+function riskRows(el,arr){
+  el.innerHTML=RISCHI.map((r,ri)=>`<div class="rk">${r}<div class="dots">${[0,1,2,3].map(l=>`<button type="button" class="c${l}${arr[ri]===l?" on":""}" data-r="${ri}" data-l="${l}" aria-label="${r} ${LVN[l]}"></button>`).join("")}</div></div>`).join("");
+  el.querySelectorAll("button").forEach(b=>b.onclick=()=>{arr[+b.dataset.r]=+b.dataset.l;changed();});
+}
+function render(){
+  /* allerta */
+  const a=S.a, mx=(x)=>Math.max(...x);
+  $("#lab-oggi").textContent="Oggi · "+giorno(0); $("#lab-dom").textContent="Domani · "+giorno(1);
+  riskRows($("#rk-oggi"),a.oggi); riskRows($("#rk-dom"),a.dom);
+  $("#dom-wrap").classList.toggle("dis",a.nodom); $("#tg-nodom").classList.toggle("on",a.nodom);
+  chips($("#ieri"),["Non indicata","Verde","Gialla","Arancione","Rossa"],(x,i)=>a.ieri===i-1,(x,i)=>{a.ieri=i-1;changed();});
+  $("#all-man").classList.toggle("dis",!!a.arch);
+  $("#arch-go").textContent=a.arch?"Annulla":"Carica";
+  $("#arch-st").innerHTML=a.arch?`Mostro il bollettino reale del <b>${a.arch.split("-").reverse().join("/")}</b>. Tocca "Annulla" per tornare ai livelli scelti a mano.`:"L'app mostra il bollettino reale di quel giorno come se fosse oggi.";
+  $("#sum-all").textContent=a.arch?"archivio "+a.arch.split("-").reverse().join("/"):"oggi "+LVN[mx(a.oggi)]+(a.nodom?" · domani in attesa":" · domani "+LVN[mx(a.dom)]);
+  /* meteo */
+  chips($("#met-day"),["Oggi","Domani"],(x,i)=>day===i,(x,i)=>{day=i;render();});
+  chips($("#met-p"),DEMO.PIOGGE.slice(1),(x,i)=>S.m.p[day]===i+1,(x,i)=>{S.m.p[day]=i+1;changed();});
+  const fl=day?S.m.fd:S.m.f;
+  chips($("#met-f"),DEMO.FEN.map(f=>({label:f[1],id:f[0]})),(x)=>fl.includes(x.id),(x)=>{const j=fl.indexOf(x.id); if(j>=0) fl.splice(j,1); else fl.push(x.id); changed();});
+  chips($("#fc-pre"),Object.keys(DEMO.PREVISIONI),()=>false,(x)=>{S.m.fc=DEMO.PREVISIONI[x].map(r=>r.slice());changed();toast("Previsioni: "+x);});
+  $("#fc-rows").innerHTML=S.m.fc.map((r,i)=>`<div class="fc"><b>${["Oggi","Domani",new Date(Date.now()+2*864e5).toLocaleDateString("it-IT",{weekday:"short",day:"numeric"})][i]}</b>${r.map((v,j)=>`<input inputmode="numeric" data-r="${i}" data-c="${j}" value="${v}">`).join("")}</div>`).join("");
+  $("#fc-rows").querySelectorAll("input").forEach(inp=>inp.onchange=()=>{const v=parseFloat(inp.value.replace(",","."));if(isFinite(v)){S.m.fc[+inp.dataset.r][+inp.dataset.c]=v;changed();}});
+  $("#sum-met").textContent="piogge "+DEMO.PIOGGE[S.m.p[0]].toLowerCase()+(S.m.f.length?" · "+S.m.f.length+" fenomeni":"");
+  /* terremoti */
+  chips($("#eq-pre"),DEMO.PAESI.map(p=>({label:p[0],p})),(x)=>eqPick&&eqPick.n===x.p[0],(x)=>{eqPick={n:x.p[0],la:x.p[1],lo:x.p[2]};$("#eq-n").value=x.p[0];eqInfo();render();});
+  $("#eq-list").innerHTML=S.q.length?S.q.map((q,i)=>{const d=Math.round(DEMO.km(DEMO.CAVE,{lat:q.la,lon:q.lo}));const col=q.M>=5?"#C8232B":q.M>=4?"#E06A12":q.M>=3?"#B8860B":"#2E8B57";return `<div class="item"><span class="m" style="background:${col}">${q.M.toFixed(1)}</span><div>${esc(q.n)}<small>${quando(q.at)} · ${d} km da Cave · prof. ${q.d} km${d>100?" · oltre 100 km: l'app non la elenca":""}</small></div><button class="x" data-i="${i}">Togli</button></div>`;}).join(""):`<div class="empty">Nessuna scossa simulata.</div>`;
+  $("#eq-list").querySelectorAll(".x").forEach(b=>b.onclick=()=>{S.q.splice(+b.dataset.i,1);changed();});
+  $("#sum-eq").textContent=S.q.length?S.q.length+(S.q.length===1?" scossa":" scosse"):"nessuna";
+  /* bacheca */
+  $("#bb-list").innerHTML=S.b.length?S.b.map((b,i)=>`<div class="item"><span class="m" style="background:${b.k==="urgente"?"#5A3D07":b.k==="evento"?"#1E3A5F":"#24364A"}">${b.k==="urgente"?"⚠️":b.k==="evento"?"📅":"📢"}</span><div>${esc(b.ti)}<small>${b.k}${b.k==="evento"?" · "+b.d.split("-").reverse().join("/"):""}</small></div><button class="x" data-i="${i}">Togli</button></div>`).join(""):`<div class="empty">Bacheca vuota.</div>`;
+  $("#bb-list").querySelectorAll(".x").forEach(b=>b.onclick=()=>{S.b.splice(+b.dataset.i,1);changed();});
+  $("#sum-bb").textContent=S.b.length?S.b.length+(S.b.length===1?" messaggio":" messaggi"):"vuota";
+  /* DAE */
+  $("#dae-list").innerHTML=DEMO.DAE.map((d,i)=>`<div class="sw" data-i="${i}"><span>${esc(d.nome)}${S.dae.includes(i)?"<small>non disponibile al momento</small>":""}</span><span class="tg y${S.dae.includes(i)?" on":""}"></span></div>`).join("");
+  $("#dae-list").querySelectorAll(".sw").forEach(r=>r.onclick=()=>{const i=+r.dataset.i,j=S.dae.indexOf(i); if(j>=0) S.dae.splice(j,1); else S.dae.push(i); changed();});
+  $("#sum-dae").textContent=S.dae.length?S.dae.length+" non disponibil"+(S.dae.length===1?"e":"i"):"tutti disponibili";
+}
+function quando(at){const m=Math.round((Date.now()-at)/60000); if(m<1) return "adesso"; if(m<60) return m+" min fa"; const h=Math.round(m/60); return h<24?h+" ore fa":Math.round(h/24)+" giorni fa";}
+
+/* allerta: domani in attesa, archivio */
+$("#sw-nodom").onclick=()=>{S.a.nodom=!S.a.nodom;changed();};
+$("#arch-d").max=iso(0); $("#arch-d").value=iso(-7);
+$("#arch-go").onclick=()=>{ if(S.a.arch){S.a.arch=null;changed();return;} const d=$("#arch-d").value; if(!d){toast("Scegli una data");return;} if(d>iso(0)){toast("La data deve essere passata");return;} S.a.arch=d; changed(); toast("Carico il bollettino del "+d.split("-").reverse().join("/")); };
+
+/* terremoti */
+$("#eq-m").oninput=()=>{$("#eq-mv").textContent=(+$("#eq-m").value).toFixed(1);};
+function eqInfo(){ const el=$("#eq-dist"); if(!eqPick){el.textContent="Scegli un comune: la distanza da Cave viene calcolata in automatico.";$("#eq-add").disabled=true;return;} const d=Math.round(DEMO.km(DEMO.CAVE,{lat:eqPick.la,lon:eqPick.lo})); el.innerHTML=`<b>${esc(eqPick.n)}</b>: circa <b>${d} km</b> da Cave${d>100?" · oltre 100 km: l'app non la mostrerà nell'elenco (come nella realtà)":""}.`; $("#eq-add").disabled=false; }
+let tGeo=null;
+$("#eq-n").oninput=()=>{ eqPick=null; eqInfo(); clearTimeout(tGeo); const q=$("#eq-n").value.trim(); if(q.length<3) return;
+  const pre=DEMO.PAESI.find(p=>p[0].toLowerCase()===q.toLowerCase()); if(pre){eqPick={n:pre[0],la:pre[1],lo:pre[2]};eqInfo();return;}
+  $("#eq-dist").textContent="Cerco "+q+"…";
+  tGeo=setTimeout(async()=>{ try{ const r=await fetch("https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1&countrycodes=it&accept-language=it&city="+encodeURIComponent(q)); const j=await r.json();
+    if(j&&j[0]&&$("#eq-n").value.trim()===q){ eqPick={n:(j[0].name||q),la:+j[0].lat,lo:+j[0].lon}; eqInfo(); } else if($("#eq-n").value.trim()===q) $("#eq-dist").textContent="Comune non trovato: controlla il nome.";
+  }catch(e){ $("#eq-dist").textContent="Ricerca non riuscita: scegli uno dei comuni qui sotto."; } },700); };
+$("#eq-add").onclick=()=>{ if(!eqPick) return; S.q.unshift({n:eqPick.n,la:+eqPick.la.toFixed(4),lo:+eqPick.lo.toFixed(4),M:+(+$("#eq-m").value).toFixed(1),d:+$("#eq-d").value,at:Date.now()-(+$("#eq-ago").value)*60000}); S.q=S.q.slice(0,8); changed(); toast("Scossa aggiunta"); };
+
+/* bacheca */
+let bbK="avviso";
+function bbKind(){ chips($("#bb-k"),["Avviso","Urgente","Evento"],(x)=>x.toLowerCase()===bbK,(x)=>{bbK=x.toLowerCase();bbKind();}); $("#bb-ev").hidden=bbK!=="evento"; $("#bb-l").hidden=bbK!=="evento"; }
+bbKind(); $("#bb-d").value=iso(7);
+function addMsg(k,ti,te,d,o,l){ S.b.unshift({k,ti,te:te||"",d:d||iso(0),o:o||"",l:l||""}); S.b=S.b.slice(0,8); changed(); toast("Pubblicato in bacheca"); }
+$("#bb-tpl").innerHTML=DEMO.MESSAGGI.map((m,i)=>`<button type="button" data-i="${i}"><b>${m[0]==="urgente"?"⚠️":m[0]==="evento"?"📅":"📢"}</b>${esc(m[1])}</button>`).join("");
+$("#bb-tpl").querySelectorAll("button").forEach(b=>b.onclick=()=>{const m=DEMO.MESSAGGI[+b.dataset.i]; if(m[0]==="evento") addMsg("evento",m[1],m[2],iso(7),"10:00","Piazza Garibaldi"); else addMsg(m[0],m[1],m[2]);});
+$("#bb-add").onclick=()=>{ const ti=$("#bb-ti").value.trim(); if(!ti){toast("Scrivi un titolo");return;} addMsg(bbK,ti,$("#bb-te").value.trim(),bbK==="evento"?$("#bb-d").value:iso(0),$("#bb-o").value.trim(),$("#bb-l").value.trim()); $("#bb-ti").value="";$("#bb-te").value=""; };
+
+/* notifiche */
+function notifiche(){
+  const lv=Math.max(...S.a.oggi), ld=Math.max(...S.a.dom), out=[];
+  if(lv>0) out.push(["⚠️ Allerta "+LVN[lv]+" oggi a Cave","Controlla cosa fare nell'app Cave Informa."]);
+  if(!S.a.nodom&&ld>0) out.push(["⚠️ Allerta "+LVN[ld]+" domani a Cave","Bollettino della Protezione Civile: apri l'app per i dettagli."]);
+  if(S.q[0]){const q=S.q[0];out.push(["🌍 Scossa di magnitudo "+q.M.toFixed(1),"Epicentro "+q.n+", a circa "+Math.round(DEMO.km(DEMO.CAVE,{lat:q.la,lon:q.lo}))+" km da Cave."]);}
+  if(S.b[0]) out.push([(S.b[0].k==="urgente"?"⚠️ ":"📢 ")+S.b[0].ti,"Comunicazione dell'associazione."]);
+  if(!out.length) out.push(["📢 Nuova comunicazione dell'associazione","Apri l'app per leggerla."]);
+  return out;
+}
+function ntTpl(){ $("#nt-tpl").innerHTML=notifiche().map((n,i)=>`<button type="button" data-i="${i}"><b>🔔</b>${esc(n[0])}</button>`).join(""); $("#nt-tpl").querySelectorAll("button").forEach(b=>b.onclick=()=>{const n=notifiche()[+b.dataset.i]; post({type:"notify",ti:n[0],te:n[1]}); toast("Notifica inviata");}); }
+$("#s-not").addEventListener("toggle",ntTpl);
+$("#q-not").onclick=()=>{const n=notifiche()[0]; post({type:"notify",ti:n[0],te:n[1]}); toast("Notifica inviata: "+n[0]);};
+$("#nt-go").onclick=()=>{const ti=$("#nt-ti").value.trim(); if(!ti){toast("Scrivi il titolo");return;} post({type:"notify",ti,te:$("#nt-te").value.trim()}); toast("Notifica inviata");};
+
+/* reset */
+$("#q-reset").onclick=()=>{ S=DEMO.NORMALE(); eqPick=null; $("#eq-n").value=""; eqInfo(); changed(); toast("Tutto tornato alla normalità"); };
+
+render();
+})();
+</script>
+</body>
+</html>
