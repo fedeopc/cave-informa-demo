@@ -3,9 +3,9 @@
    quindi si aggiorna da sola quando aggiorni l'app vera.
    Se sposti l'app (per esempio nell'organizzazione dell'associazione) cambia queste due righe. */
 window.DEMO_CONFIG = {
-  // indirizzo dell'app vera, con la barra finale. Con "../allerta-cave/" la demo cerca l'app nel repository
-  // "allerta-cave" dello stesso account GitHub (https://fedeopc.github.io/allerta-cave/)
-  app: "../allerta-cave/",
+  // indirizzo dell'app vera, con la barra finale. Con "../Cave-Informa/" la demo cerca l'app nel repository
+  // "Cave-Informa" dello stesso account GitHub (https://fedeopc.github.io/Cave-Informa/)
+  app: "../Cave-Informa/",
   // come scrivere l'indirizzo dell'app a sinistra nella pagina del PC
-  mostra: "fedeopc.github.io/allerta-cave",
+  mostra: "fedeopc.github.io/Cave-Informa",
 };
