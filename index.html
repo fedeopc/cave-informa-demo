@@ -22,6 +22,7 @@
     h = h.replace(/<link[^>]+rel=["']manifest["'][^>]*>/gi, "");                       // non installabile
     h = h.replace(/navigator\.serviceWorker\.register\(/g, "(()=>Promise.resolve())(");  // niente funzionamento offline
     h = h.replace(/(<meta name="apple-mobile-web-app-title" content=")[^"]*/i, "$1Cave Demo");
+    h = h.replace(/const PUSH_API = "[^"]*"/, 'const PUSH_API = ""');               // la demo non si iscrive alle notifiche vere
     if (!/<head[^>]*>/i.test(h)) throw new Error("pagina non valida");
     return h.replace(/<head[^>]*>/i, (m) => m + '\n<meta name="robots" content="noindex">' + DEMO_SCRIPTS);
   }
